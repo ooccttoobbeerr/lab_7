@@ -84,15 +84,12 @@ void draw_dots(RenderWindow & window, Shapes & shape, Vector2f(& coordinatePoint
 
 int main() 
 {
-	draw_arrow(shapes, HOUR_ARROW, MINUTE_ARROW, SECOND_ARROW);
-
 	ContextSettings settings; 
 	settings.antialiasingLevel = 8;
-
 	RenderWindow window(VideoMode(200, 200), "Clock", Style::Default, settings);
-
 	Vector2f coordinatePoints[AMOUNT_DOTS];
 	SYSTEMTIME sysTime;
+	draw_arrow(shapes, HOUR_ARROW, MINUTE_ARROW, SECOND_ARROW);
 	while (window.isOpen()) {
 		GetSystemTime(&sysTime);
 		shapes.secondArrow.setRotation(float(sysTime.wSecond * 6));
