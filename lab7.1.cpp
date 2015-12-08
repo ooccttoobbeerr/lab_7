@@ -12,7 +12,6 @@ const int RADIUS = 100;
 const int X = 100;
 const int Y = 100;
 const int AMOUNT_DOTS = 60;
-const int SCALE = 90;
 
 Vector2f HOUR_ARROW = { 65, 4 };
 Vector2f MINUTE_ARROW = { 80, 3 };
@@ -56,8 +55,8 @@ void draw_dots(RenderWindow & window, Shapes & shape, Vector2f(& coordinatePoint
 {
 	Vector2f coordinatePoint;
 	for (int i = 0; i < AMOUNT_DOTS; i++) {
-		coordinatePoint.x = X + SCALE * cos(i * 6 * float(M_PI) / 180);
-		coordinatePoint.y = Y + SCALE * sin(i * 6 * float(M_PI) / 180);
+		coordinatePoint.x = X + 90 * cos(i * 6 * float(M_PI) / 180);
+		coordinatePoint.y = Y + 90 * sin(i * 6 * float(M_PI) / 180);
 		coordinatePoints[i] = { coordinatePoint.x, coordinatePoint.y };
 	}
 
