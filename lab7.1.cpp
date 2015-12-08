@@ -24,7 +24,7 @@ struct Shapes {
 	RectangleShape dot;
 }shapes;
 
-void draw_arrow(Shapes & shapes, Vector2f HOUR_ARROW, Vector2f MINUTE_ARROW, Vector2f SECOND_ARROW)
+void draw_arrow(RenderWindow & window, Shapes & shapes, Vector2f HOUR_ARROW, Vector2f MINUTE_ARROW, Vector2f SECOND_ARROW)
 {
 	shapes.hourArrow.setPointCount(3);
 	shapes.hourArrow.setPoint(0, Vector2f(0, 0));
@@ -33,6 +33,7 @@ void draw_arrow(Shapes & shapes, Vector2f HOUR_ARROW, Vector2f MINUTE_ARROW, Vec
 	shapes.hourArrow.setPosition(float(X), float(Y));
 	shapes.hourArrow.setOrigin(HOUR_ARROW.y / 2, -HOUR_ARROW.x / 8);
 	shapes.hourArrow.setFillColor(Color::Red);
+	window.draw(shapes.hourArrow);
 
 	shapes.minuteArrow.setPointCount(3);
 	shapes.minuteArrow.setPoint(0, Vector2f(0, 0));
@@ -41,6 +42,7 @@ void draw_arrow(Shapes & shapes, Vector2f HOUR_ARROW, Vector2f MINUTE_ARROW, Vec
 	shapes.minuteArrow.setPosition(float(X), float(Y));
 	shapes.minuteArrow.setOrigin(MINUTE_ARROW.y / 2, -MINUTE_ARROW.x / 8);
 	shapes.secondArrow.setFillColor(Color::White);
+	window.draw(shapes.minuteArrow);
 
 	shapes.secondArrow.setPointCount(3);
 	shapes.secondArrow.setPoint(0, Vector2f(0, 0));
@@ -49,6 +51,7 @@ void draw_arrow(Shapes & shapes, Vector2f HOUR_ARROW, Vector2f MINUTE_ARROW, Vec
 	shapes.secondArrow.setPosition(float(X), float(Y));
 	shapes.secondArrow.setOrigin(SECOND_ARROW.y / 2, -SECOND_ARROW.x / 8);
 	shapes.secondArrow.setFillColor(Color::White);
+	window.draw(shapes.secondArrow);
 }
 
 void draw_dots(RenderWindow & window, Shapes & shape, Vector2f(& coordinatePoints)[AMOUNT_DOTS])
@@ -89,7 +92,6 @@ int main()
 	RenderWindow window(VideoMode(200, 200), "Clock", Style::Default, settings);
 	Vector2f coordinatePoints[AMOUNT_DOTS];
 	SYSTEMTIME sysTime;
-	draw_arrow(shapes, HOUR_ARROW, MINUTE_ARROW, SECOND_ARROW);
 	while (window.isOpen()) {
 		GetSystemTime(&sysTime);
 		shapes.secondArrow.setRotation(float(sysTime.wSecond * 6));
@@ -102,9 +104,7 @@ int main()
 				window.close();
 		}
 		window.clear();
-		window.draw(shapes.hourArrow);
-		window.draw(shapes.minuteArrow);
-		window.draw(shapes.secondArrow);
+		draw_arrow(window, shapes, HOUR_ARROW, MINUTE_ARROW, SECOND_ARROW);
 		draw_dots(window, shapes, coordinatePoints);
 		window.display();
 	}
