@@ -24,33 +24,23 @@ struct Shapes {
 	RectangleShape dot;
 }shapes;
 
-void draw_arrow(RenderWindow & window, Shapes & shapes, Vector2f HOUR_ARROW, Vector2f MINUTE_ARROW, Vector2f SECOND_ARROW)
+void creating_arrows(ConvexShape & arrow, float height, float width, Color color) {
+	arrow.setPointCount(3);
+	arrow.setPoint(0, Vector2f(0, 0));
+	arrow.setPoint(1, Vector2f(height / 2, -width));
+	arrow.setPoint(2, Vector2f(height, 0));
+	arrow.setPosition(float(X), float(Y));
+	arrow.setOrigin(height / 2, -width / 8);
+	arrow.setFillColor(color);
+}
+
+void draw_arrow(RenderWindow & window, Shapes & shapes)
 {
-	shapes.hourArrow.setPointCount(3);
-	shapes.hourArrow.setPoint(0, Vector2f(0, 0));
-	shapes.hourArrow.setPoint(1, Vector2f(HOUR_ARROW.y / 2, -HOUR_ARROW.x));
-	shapes.hourArrow.setPoint(2, Vector2f(HOUR_ARROW.y, 0));
-	shapes.hourArrow.setPosition(float(X), float(Y));
-	shapes.hourArrow.setOrigin(HOUR_ARROW.y / 2, -HOUR_ARROW.x / 8);
-	shapes.hourArrow.setFillColor(Color::Red);
+	creating_arrows(shapes.hourArrow, HOUR_ARROW.y, HOUR_ARROW.x, Color::Red);
 	window.draw(shapes.hourArrow);
-
-	shapes.minuteArrow.setPointCount(3);
-	shapes.minuteArrow.setPoint(0, Vector2f(0, 0));
-	shapes.minuteArrow.setPoint(1, Vector2f(MINUTE_ARROW.y / 2, -MINUTE_ARROW.x));
-	shapes.minuteArrow.setPoint(2, Vector2f(MINUTE_ARROW.y, 0));
-	shapes.minuteArrow.setPosition(float(X), float(Y));
-	shapes.minuteArrow.setOrigin(MINUTE_ARROW.y / 2, -MINUTE_ARROW.x / 8);
-	shapes.secondArrow.setFillColor(Color::White);
+	creating_arrows(shapes.minuteArrow, MINUTE_ARROW.y, MINUTE_ARROW.x, Color::White);
 	window.draw(shapes.minuteArrow);
-
-	shapes.secondArrow.setPointCount(3);
-	shapes.secondArrow.setPoint(0, Vector2f(0, 0));
-	shapes.secondArrow.setPoint(1, Vector2f(SECOND_ARROW.y / 2, -SECOND_ARROW.x));
-	shapes.secondArrow.setPoint(2, Vector2f(SECOND_ARROW.y, 0));
-	shapes.secondArrow.setPosition(float(X), float(Y));
-	shapes.secondArrow.setOrigin(SECOND_ARROW.y / 2, -SECOND_ARROW.x / 8);
-	shapes.secondArrow.setFillColor(Color::White);
+	creating_arrows(shapes.secondArrow, SECOND_ARROW.y, SECOND_ARROW.x, Color::White);
 	window.draw(shapes.secondArrow);
 }
 
@@ -104,7 +94,7 @@ int main()
 				window.close();
 		}
 		window.clear();
-		draw_arrow(window, shapes, HOUR_ARROW, MINUTE_ARROW, SECOND_ARROW);
+		draw_arrow(window, shapes);
 		draw_dots(window, shapes, coordinatePoints);
 		window.display();
 	}
